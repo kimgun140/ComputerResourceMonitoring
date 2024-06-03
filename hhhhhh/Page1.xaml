@@ -11,11 +11,13 @@
       Title="Page1">
 
     <Grid>
-        <Label Content="cpuUsage" Margin="36,10,658,384"/>
-        <Label Content="MemoryUsage" Margin="36,177,614,225"/>
-        <ProgressBar x:Name="ProgressBarCpu" Margin="25,100,31,316"/>
-        <ProgressBar x:Name="ProgressBarMem" Margin="25,260,31,155"/>
-        <Button x:Name="buttonstart_" Content="start" Margin="25,337,582,25" Click="buttonstart__Click"/>
+        <Label Content="cpuUsage" Margin="36,10,658,384" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30"/>
+        <Label Content="MemoryUsage" Margin="36,177,614,225" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30"/>
+        <ProgressBar x:Name="ProgressBarCpu" Margin="25,100,31,316" LargeChange="0" Width="700" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="ProgressBarMem" Margin="25,260,31,155" HorizontalAlignment="Left" VerticalAlignment="Top" Width="700" Height="30"/>
+        <Button x:Name="buttonstart_" Content="start" Margin="25,337,582,25" Click="buttonstart__Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="100"/>
+        <Label x:Name="cpuuu" Content="cpuuu" Margin="635,48,31,364" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="memmm" Content="memmm" Margin="652,210,48,210" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
 
 

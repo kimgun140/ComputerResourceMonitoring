@@ -26,19 +26,7 @@ namespace hhhhhh
 
     public partial class Page1 : Page
     {
-
-
-
-
-
-
-
-
-
         private static System.Timers.Timer _timer;
-
-
-
 
         public Page1()
         {
@@ -48,21 +36,10 @@ namespace hhhhhh
             _timer.Interval = 3000;
             _timer.Elapsed += OntimedEvent;
             _timer.AutoReset = true;
-
-
-
-
-
-
-
-
-
-
-
-
-
+            _timer.Enabled = true;
 
         }
+
         private void OntimedEvent(object source, System.Timers.ElapsedEventArgs e)
         {
             int cpuvalue = GetCpuValue();
@@ -72,6 +49,8 @@ namespace hhhhhh
             {
                 ProgressBarCpu.Value = cpuvalue;
                 ProgressBarMem.Value = memvalue;
+                memmm.Content = memvalue.ToString() + "%";
+                cpuuu.Content = cpuvalue.ToString() + "%";
             });
         }
 
