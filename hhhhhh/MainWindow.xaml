@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:live="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:hhhhhh"
         mc:Ignorable="d"
@@ -10,11 +11,70 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
 
-        <!--<Button  Content="Button" Click="Button_Click" Margin="805,156,-87,191" Panel.ZIndex="3" Width="100" Height="30"/>-->
-        <!--<TextBlock x:Name="aaa" TextWrapping="Wrap" Text=""  Margin="800,248,-112,158" Width="100" Height="30"/>-->
 
-        <Frame Source="/Page1.xaml"/>
+        <Label Content="cpuUsage" Margin="36,10,658,384" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30"/>
+        <Label Content="MemoryUsage" Margin="36,177,614,225" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30"/>
+        <Label Content="ProcessUsage" Margin="36,337,614,225" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30"/>
+
+        <ProgressBar x:Name="ProgressBarCpu" Margin="25,100,31,316" LargeChange="0" Width="700" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ProgressBar x:Name="ProgressBarMem" Margin="25,260,31,155" HorizontalAlignment="Left" VerticalAlignment="Top" Width="700" Height="30"/>
+        <ProgressBar x:Name="ProgressProcess" Margin="25,340,31,155" HorizontalAlignment="Left" VerticalAlignment="Top" Width="700" Height="30"/>
+
+        <Label x:Name="cpuuu" Content="cpuuu" Margin="635,48,31,364" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label x:Name="memmm" Content="memmm" Margin="652,210,48,210" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Label x:Name="processsss" Content="memmm" Margin="652,300,48,210" Width="100" Height="30" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
 
+        <live:CartesianChart x:Name="Chart"
+            BorderBrush="Black" BorderThickness="2"
+            LegendLocation="Top"
+            Margin="317,260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="163" Width="229">
+            <live:CartesianChart.AxisY>
+                <live:Axis MinValue="0" MaxValue="100"/>
+            </live:CartesianChart.AxisY>
+            <live:CartesianChart.AxisX>
+                <live:Axis Labels="01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12"/>
+            </live:CartesianChart.AxisX>
+            <live:CartesianChart.Series>
+                <live:LineSeries Stroke="Green" Title="Sample1" Values="{Binding M_Chart}"/>
+            </live:CartesianChart.Series>
+        </live:CartesianChart>
+
+        <live:CartesianChart x:Name="Chart1"
+            BorderBrush="Black" BorderThickness="2"
+            LegendLocation="Top"
+            Margin="10,260,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="164" Width="247">
+            <live:CartesianChart.AxisY>
+                <live:Axis MinValue="0" MaxValue="100"/>
+            </live:CartesianChart.AxisY>
+            <live:CartesianChart.AxisX>
+                <live:Axis Labels="01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12"/>
+            </live:CartesianChart.AxisX>
+            <live:CartesianChart.Series>
+
+                <live:LineSeries Stroke="Red" Title="Sample2" Values="{Binding C_Chart}"/>
+
+
+            </live:CartesianChart.Series>
+        </live:CartesianChart>
+
+
+
+        <live:CartesianChart x:Name="Chart2"
+            BorderBrush="Black" BorderThickness="2"
+            LegendLocation="Top"
+            Margin="544,78,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="177" Width="228">
+            <live:CartesianChart.AxisY>
+                <live:Axis MinValue="0" MaxValue="100"/>
+            </live:CartesianChart.AxisY>
+            <live:CartesianChart.AxisX>
+                <live:Axis Labels="01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12"/>
+            </live:CartesianChart.AxisX>
+            <live:CartesianChart.Series>
+
+                <live:LineSeries Stroke="Blue" Title="Sample3" Values="{Binding P_Chart}"/>
+
+            </live:CartesianChart.Series>
+        </live:CartesianChart>
     </Grid>
 </Window>
