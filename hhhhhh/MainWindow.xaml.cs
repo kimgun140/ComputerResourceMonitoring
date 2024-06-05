@@ -63,7 +63,7 @@ namespace hhhhhh
                 conn = new MySqlConnection(connectString);
 
             }
-            public string cpudata(int cpuvalue)
+            public void cpudata(int cpuvalue)
             {
                 try
                 {
@@ -73,20 +73,20 @@ namespace hhhhhh
                     //실행할 쿼리문 
                     string query = "INSERT INTO cpu_data VALUES (DEFAULT," + cpuvalue + ");";
                     //쿼리 명령 실행
+                    
                     MySqlCommand cmd = new MySqlCommand(query, conn);
+                        
                     cmd.ExecuteNonQuery();// 결과 집합이 없는  sql 전송 (적용된 행의 수 리턴)
                     conn.Close();
-                    return "ok";
 
                 }
                 catch (MySqlException e)
                 {
-                    return e.Message; ;
 
                 }
 
             }
-            public string memdata(int memvalue)
+            public void memdata(int memvalue)
             {
                 try
                 {
@@ -98,16 +98,14 @@ namespace hhhhhh
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
-                    return "memok";
 
                 }
                 catch (MySqlException e)
                 {
-                    return e.Message;
 
                 }
             }
-            public string procdata(double procvalue)
+            public void procdata(double procvalue)
             {
                 try
                 {
@@ -119,12 +117,11 @@ namespace hhhhhh
                     MySqlCommand cmd = new MySqlCommand(query, conn);
                     cmd.ExecuteNonQuery();
                     conn.Close();
-                    return "procok";
 
                 }
                 catch (MySqlException e)
                 {
-                    return e.Message;
+                    
 
                 }
             }
@@ -297,25 +294,19 @@ namespace hhhhhh
 
         private async void background()
         {
+
             await Task.Run(async () =>
             {
                 while (true)
                 {
                     int cpuvalue = GetCpuValue();
-                    string a = cpudb.cpudata(cpuvalue);
+                     cpudb.cpudata(cpuvalue);
                     //cpudatatext.Text = a;
-                    //Dispatcher.BeginInvoke((Action)(async () =>
-                    //    {
-                    //        await Task.Run(async () =>
-                    //        {
-                    //            cpudatatext.Text = a;
-                                
-                    //        });
-                    //    }));
+                    
                     int memvalue = GetMemValue();
-                    string b = cpudb.memdata(memvalue);
+                    cpudb.memdata(memvalue);
                     double procvalue = GetProcessCpuUsage();
-                    string c = cpudb.procdata(procvalue);
+                    cpudb.procdata(procvalue);
 
                     await Task.Delay(3000);
                 }
@@ -325,15 +316,15 @@ namespace hhhhhh
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int cpuvalue = GetCpuValue();
-            string a = cpudb.cpudata(cpuvalue);
-            cpudatatext.Text = a;
-            int memvalue = GetMemValue();
-            string b = cpudb.memdata(memvalue);
-            memdatatext.Text = b;
-            double procvalue = GetProcessCpuUsage();
-            string c = cpudb.procdata(procvalue);
-            procdatatext.Text = c;
+            //int cpuvalue = GetCpuValue();
+            //string a = cpudb.cpudata(cpuvalue);
+            //cpudatatext.Text = a;
+            //int memvalue = GetMemValue();
+            //string b = cpudb.memdata(memvalue);
+            //memdatatext.Text = b;
+            //double procvalue = GetProcessCpuUsage();
+            //string c = cpudb.procdata(procvalue);
+            //procdatatext.Text = c;
         }
     }
 }
