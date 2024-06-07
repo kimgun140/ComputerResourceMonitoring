@@ -1,11 +1,12 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
 namespace hhhhhh
 {
     public class pooooooooo
@@ -209,6 +210,70 @@ namespace hhhhhh
                     return null;
 
                 }
+
+            }
+            public void SAVE_data()
+            {
+                var datasett1 = new DataSet();
+                var datasett2 = new DataSet();
+                var datasett3 = new DataSet();
+
+                string query1 = "SELECT * FROM cpu_data;";
+                string query2 = "SELECT * FROM mem_data;";
+                string query3 = "SELECT * FROM proc_data;";
+
+                List<string> result_cpudata = new List<string>();
+                List<string> result_cputime = new List<string>();
+
+                List<string> result_memdata = new List<string>();
+                List<string> result_memtime = new List<string>();
+
+                List<string> result_procdata = new List<string>();
+                List<string> result_proctime = new List<string>();
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(query1, conn);// cpudata
+                MySqlDataAdapter adapter1 = new MySqlDataAdapter(query2, conn);// memdata
+                MySqlDataAdapter adapter2 = new MySqlDataAdapter(query3, conn);// procdata
+                adapter.Fill(datasett1, "cpu_data");
+                adapter1.Fill(datasett2, "mem_data");
+                adapter2.Fill(datasett3, "proc_data");
+
+                foreach (var row in datasett1.Tables["cpu_data"].AsEnumerable())
+                {
+                    result_cputime.Add(row["save_time"].ToString());
+                    result_cpudata.Add(row["save_cpu"].ToString());
+                }
+
+                foreach (var row in datasett2.Tables["mem_data"].AsEnumerable())
+                {
+                    result_memtime.Add(row["save_time"].ToString());
+                    result_memdata.Add(row["save_mem"].ToString());
+
+                }
+                foreach (var row in datasett3.Tables["proc_data"].AsEnumerable())
+                {
+                    result_proctime.Add(row["save_time"].ToString());
+                    result_procdata.Add(row["save_proc"].ToString());
+
+                }
+
+                System.IO.StreamWriter file = new System.IO.StreamWriter(@"com_data.csv", false, System.Text.Encoding.GetEncoding("utf-8"));
+
+                //file.Open
+                file.WriteLine("cpu_time,cpu_data,mem_time,mem_data,proc_time,proc_data");
+                for (int i = 0; i < result_procdata.Count() - 1; i++)
+                {
+                    file.Write(result_cputime[i] + "," + result_cpudata[i]);
+                    file.Write("," + result_memtime[i] + "," + result_memdata[i] + ",");
+                    file.Write(result_proctime[i] + "," + result_procdata[i] + "\n");
+                    //, result_cpudata[i], result_memtime[i], result_memdata[i], result_proctime[i], result_procdata[i]
+                    //file.Write(result_cpudata[i],"\n");
+
+
+
+                }
+                file.Close();
+
 
             }
         }

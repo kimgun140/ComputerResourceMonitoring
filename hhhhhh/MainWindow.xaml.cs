@@ -85,8 +85,6 @@ namespace hhhhhh
             Chart3.DataContext = this;
             Chart4.DataContext = this;
             Chart5.DataContext = this;
-
-
             //chartasdfname.DataContext = this;
         }
 
@@ -108,10 +106,13 @@ namespace hhhhhh
             await ProgressBarCpu.Dispatcher.BeginInvoke((System.Action)(() =>
                 {
                     ProgressBarCpu.Value = cpuvalue;
-                    cpuuu.Content = cpuvalue.ToString() + "%"; 
-                    if(C_Chart.Count > 20)
+                    cpuuu.Content = cpuvalue.ToString() + "%";
+                    if (C_Chart.Count > 5)
                     {
-                        C_Chart.Clear();
+                        //C_Chart.Clear();
+                        C_Chart.RemoveAt(0);
+                        M_Chart.RemoveAt(0);
+                        P_Chart.RemoveAt(0);
                     }
                     C_Chart.Add((int)cpuvalue);
                 }));
@@ -186,16 +187,7 @@ namespace hhhhhh
                 while (true)
                 {
                     int cpuvalue = GetCpuValue();
-                     cpudb.cpudata(cpuvalue);
-                    //cpudatatext.Text = a;
-                    //Dispatcher.BeginInvoke((Action)(async () =>
-                    //    {
-                    //        await Task.Run(async () =>
-                    //        {
-                    //            cpudatatext.Text = a;
-
-                    //        });
-                    //    }));
+                    cpudb.cpudata(cpuvalue);
                     int memvalue = GetMemValue();
                     cpudb.memdata(memvalue);
                     double procvalue = GetProcessCpuUsage();
@@ -205,24 +197,11 @@ namespace hhhhhh
                 }
             });
         }
-
-
         async public void Button_Click(object sender, RoutedEventArgs e)
         {
             Save_Chart.Clear();
             Save_Chart1.Clear();
             Save_Chart2.Clear();
-
-
-            //int cpuvalue = GetCpuValue();
-            //string a = cpudb.cpudata(cpuvalue);
-            //cpudatatext.Text = a;
-            //int memvalue = GetMemValue();
-            //string b = cpudb.memdata(memvalue);
-            //memdatatext.Text = b;
-            //double procvalue = GetProcessCpuUsage();
-            //string c = cpudb.procdata(procvalue);
-            //procdatatext.Text = c;
             await Task.Run(async () =>
             {
                 //await Task.Delay(1000);
@@ -230,32 +209,31 @@ namespace hhhhhh
                 List<string> cdata = cpudb.select_cpudata();
                 List<string> mdata = cpudb.select_memdata();
                 List<string> pdata = cpudb.select_procdata();
-                for (int i = 0; i < cdata.Count - 1; i++)
+                for (int i = 0; i < pdata.Count - 1; i++)
                 {
 
                     await Dispatcher.BeginInvoke((Action)(async () =>
                         {
-                         
-
-                                Chart3.Visibility = Visibility.Visible;
-                                Chart4.Visibility = Visibility.Visible;
-                                Chart5.Visibility = Visibility.Visible;
-                           
-          
+                            Chart3.Visibility = Visibility.Visible;
+                            Chart4.Visibility = Visibility.Visible;
+                            Chart5.Visibility = Visibility.Visible;
                             await Task.Run(() =>
                             {
-
                                 Save_Chart.Add(Convert.ToInt32(cdata[i])); // 
                                 Save_Chart1.Add(Convert.ToInt32(mdata[i]));
                                 Save_Chart2.Add(Convert.ToInt32(pdata[i]));
-
-                                //memdatatext.Text = ((cdata[i])); // 
                             });
                         }));
                 }
             });
         }
 
+        async public void Button_Click_1(object sender, RoutedEventArgs e)
+        {
 
+            await Task.Run(cpudb.SAVE_data);
+
+
+        }
     }
 }
